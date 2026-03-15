@@ -5,6 +5,34 @@ type Props = {
   events: EventOut[];
 };
 
+function httpStatusCode(span: SpanOut): number | null {
+  const attrs: any = span.attributes ?? {};
+  const candidates = [
+    attrs["http.status_code"],
+    attrs["http.response.status_code"],
+    attrs["rpc.http.status_code"],
+  ];
+  for (const v of candidates) {
+    if (typeof v === "number" && Number.isFinite(v)) return v;
+    if (typeof v === "string" && v.trim() && Number.isFinite(Number(v))) return Number(v);
+  }
+
+  const out: any = span.output;
+  if (out && typeof out === "object") {
+    const v = out.status;
+    if (typeof v === "number" && Number.isFinite(v)) return v;
+    if (typeof v === "string" && v.trim() && Number.isFinite(Number(v))) return Number(v);
+  }
+  return null;
+}
+
+function httpStatusClass(code: number): "ok" | "err" | "warn" {
+  if (code >= 500) return "err";
+  if (code >= 400) return "err";
+  if (code >= 300) return "warn";
+  return "ok";
+}
+
 function fmtTime(iso?: string | null) {
   if (!iso) return "-";
   const d = new Date(iso);
@@ -34,8 +62,24 @@ export default function SpanDetails({ span, events }: Props) {
 
   const relatedEvents = events.filter((e) => e.span_id === span.span_id);
   const res = resourceSummary(span);
-  const hasError = span.status_code === "error" || span.error != null;
-  const statusLabel = span.status_code ?? (span.error != null ? "error" : "unset");
+  const code = httpStatusCode(span);
+  const httpClass = code != null ? httpStatusClass(code) : null;
+  const hasError =
+    span.status_code === "error" ||
+    span.error != null ||
+    (code != null && code >= 400);
+  const statusLabel =
+    code != null
+      ? `HTTP ${code}`
+      : span.status_code ?? (span.error != null ? "error" : "ok");
+  const statusColor =
+    httpClass === "ok"
+      ? "var(--good)"
+      : httpClass === "warn"
+        ? "var(--warn)"
+        : hasError
+          ? "var(--bad)"
+          : "var(--muted)";
   const hasAnyTokens =
     span.token_prompt != null || span.token_completion != null || span.token_total != null;
 
@@ -64,7 +108,7 @@ export default function SpanDetails({ span, events }: Props) {
           <div className="k">Duration</div>
           <div>{span.duration_ms ?? "-"} ms</div>
           <div className="k">Status</div>
-          <div style={{ color: hasError ? "var(--bad)" : "var(--muted)" }}>
+          <div style={{ color: statusColor }}>
             {statusLabel}
             {span.status_message ? `: ${span.status_message}` : ""}
           </div>
