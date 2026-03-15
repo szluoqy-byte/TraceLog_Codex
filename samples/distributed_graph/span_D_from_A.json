@@ -1,0 +1,25 @@
+{
+  "version": "tracelog.v1",
+  "resource": {
+    "service.name": "svc-D",
+    "service.instance.id": "D-1",
+    "deployment.environment": "local"
+  },
+  "trace_id": "graph_fanout_000000000000000000000000000001",
+  "span": {
+    "span_id": "d111111111111111",
+    "parent_span_id": "aaaaaaaaaaaaaaaa",
+    "name": "D.fetch_cache",
+    "kind": "tool",
+    "start_time": "2026-03-15T12:30:00.110Z",
+    "end_time": "2026-03-15T12:30:00.350Z",
+    "attributes": {
+      "tool.name": "svc.D",
+      "tool.type": "rpc",
+      "rpc.system": "http",
+      "rpc.method": "GET",
+      "rpc.route": "/cache"
+    }
+  }
+}
+

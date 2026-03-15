@@ -1,0 +1,25 @@
+{
+  "version": "tracelog.v1",
+  "resource": {
+    "service.name": "svc-E",
+    "service.instance.id": "E-1",
+    "deployment.environment": "local"
+  },
+  "trace_id": "graph_fanout_000000000000000000000000000001",
+  "span": {
+    "span_id": "eeeeeeeeeeeeeeee",
+    "parent_span_id": "cccccccccccccccc",
+    "name": "E.retrieve_docs",
+    "kind": "tool",
+    "start_time": "2026-03-15T12:30:00.250Z",
+    "end_time": "2026-03-15T12:30:00.610Z",
+    "attributes": {
+      "tool.name": "svc.E",
+      "tool.type": "rpc",
+      "rpc.system": "http",
+      "rpc.method": "POST",
+      "rpc.route": "/retrieve"
+    }
+  }
+}
+

@@ -1,0 +1,25 @@
+{
+  "version": "tracelog.v1",
+  "resource": {
+    "service.name": "svc-C",
+    "service.instance.id": "C-1",
+    "deployment.environment": "local"
+  },
+  "trace_id": "graph_fanout_000000000000000000000000000001",
+  "span": {
+    "span_id": "cccccccccccccccc",
+    "parent_span_id": "aaaaaaaaaaaaaaaa",
+    "name": "C.plan_and_execute",
+    "kind": "tool",
+    "start_time": "2026-03-15T12:30:00.100Z",
+    "end_time": "2026-03-15T12:30:00.930Z",
+    "attributes": {
+      "tool.name": "svc.C",
+      "tool.type": "rpc",
+      "rpc.system": "http",
+      "rpc.method": "POST",
+      "rpc.route": "/execute"
+    }
+  }
+}
+

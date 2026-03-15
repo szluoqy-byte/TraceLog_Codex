@@ -1,0 +1,28 @@
+{
+  "version": "tracelog.v1",
+  "resource": {
+    "service.name": "demo-agent",
+    "service.instance.id": "node-b",
+    "deployment.environment": "local"
+  },
+  "trace_id": "d1str1buted4bf34da6a3ce929d0e0e111",
+  "span": {
+    "span_id": "dddddddddddddddd",
+    "parent_span_id": "aaaaaaaaaaaaaaaa",
+    "name": "llm.chat.completions",
+    "kind": "llm",
+    "start_time": "2026-03-15T12:00:01.650Z",
+    "end_time": "2026-03-15T12:00:02.480Z",
+    "attributes": {
+      "gen_ai.system": "openai",
+      "gen_ai.request.model": "gpt-5.2-mini",
+      "gen_ai.operation.name": "chat.completions",
+      "gen_ai.prompt": "Write final answer with tool result.",
+      "gen_ai.usage.prompt_tokens": 64,
+      "gen_ai.usage.completion_tokens": 54
+    },
+    "input": { "tool_result": { "status": "in_transit", "eta_days": 2 } },
+    "output": { "assistant": "Order 123 is in transit and is expected in about 2 days." }
+  }
+}
+

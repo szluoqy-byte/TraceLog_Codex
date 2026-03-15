@@ -1,0 +1,23 @@
+{
+  "version": "tracelog.v1",
+  "resource": {
+    "service.name": "svc-A",
+    "service.instance.id": "A-1",
+    "deployment.environment": "local"
+  },
+  "trace_id": "graph_fanout_000000000000000000000000000001",
+  "span": {
+    "span_id": "aaaaaaaaaaaaaaaa",
+    "parent_span_id": null,
+    "name": "A.handle_request",
+    "kind": "agent",
+    "start_time": "2026-03-15T12:30:00.000Z",
+    "end_time": "2026-03-15T12:30:01.200Z",
+    "attributes": {
+      "http.method": "POST",
+      "http.route": "/work",
+      "agent.session_id": "sess_graph_1"
+    }
+  }
+}
+

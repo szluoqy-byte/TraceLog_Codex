@@ -1,0 +1,22 @@
+{
+  "version": "tracelog.v1",
+  "resource": {
+    "service.name": "demo-agent",
+    "service.instance.id": "node-x",
+    "deployment.environment": "local"
+  },
+  "trace_id": "partial_update_demo_000000000000000000000000000001",
+  "span": {
+    "span_id": "9999999999999999",
+    "parent_span_id": null,
+    "name": "tool.long_running",
+    "kind": "tool",
+    "start_time": "2026-03-15T13:00:00.000Z",
+    "attributes": {
+      "tool.name": "long_running",
+      "tool.type": "internal"
+    },
+    "input": { "job_id": "job_1" }
+  }
+}
+

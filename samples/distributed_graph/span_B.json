@@ -1,0 +1,25 @@
+{
+  "version": "tracelog.v1",
+  "resource": {
+    "service.name": "svc-B",
+    "service.instance.id": "B-1",
+    "deployment.environment": "local"
+  },
+  "trace_id": "graph_fanout_000000000000000000000000000001",
+  "span": {
+    "span_id": "bbbbbbbbbbbbbbbb",
+    "parent_span_id": "aaaaaaaaaaaaaaaa",
+    "name": "B.query_profile",
+    "kind": "tool",
+    "start_time": "2026-03-15T12:30:00.090Z",
+    "end_time": "2026-03-15T12:30:00.520Z",
+    "attributes": {
+      "tool.name": "svc.B",
+      "tool.type": "rpc",
+      "rpc.system": "http",
+      "rpc.method": "GET",
+      "rpc.route": "/profile"
+    }
+  }
+}
+

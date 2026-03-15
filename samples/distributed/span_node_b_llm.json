@@ -1,0 +1,34 @@
+{
+  "version": "tracelog.v1",
+  "resource": {
+    "service.name": "demo-agent",
+    "service.instance.id": "node-b",
+    "deployment.environment": "local"
+  },
+  "trace_id": "d1str1buted4bf34da6a3ce929d0e0e111",
+  "span": {
+    "span_id": "bbbbbbbbbbbbbbbb",
+    "parent_span_id": "aaaaaaaaaaaaaaaa",
+    "name": "llm.chat.completions",
+    "kind": "llm",
+    "start_time": "2026-03-15T12:00:00.120Z",
+    "end_time": "2026-03-15T12:00:01.080Z",
+    "attributes": {
+      "gen_ai.system": "openai",
+      "gen_ai.request.model": "gpt-5.2-mini",
+      "gen_ai.operation.name": "chat.completions",
+      "gen_ai.prompt": "Decide next action and whether to call a tool.",
+      "gen_ai.usage.prompt_tokens": 88,
+      "gen_ai.usage.completion_tokens": 28,
+      "gen_ai.usage.total_tokens": 116
+    },
+    "input": {
+      "messages": [
+        { "role": "system", "content": "You are a helpful agent." },
+        { "role": "user", "content": "Look up latest shipping status for order 123." }
+      ]
+    },
+    "output": { "assistant": "Calling tool.order_status(order_id=123)" }
+  }
+}
+

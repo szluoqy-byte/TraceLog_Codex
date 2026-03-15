@@ -1,0 +1,418 @@
+{
+  "version": "tracelog.v1",
+  "resource": {
+    "service.name": "research-agent",
+    "service.version": "0.2.0",
+    "deployment.environment": "local"
+  },
+  "traces": [
+    {
+      "trace_id": "research_fullflow_000000000000000000000000000001",
+      "started_at": "2026-03-15T14:00:00.000Z",
+      "spans": [
+        {
+          "span_id": "0000000000001000",
+          "parent_span_id": null,
+          "name": "agent.run",
+          "kind": "agent",
+          "start_time": "2026-03-15T14:00:00.000Z",
+          "end_time": "2026-03-15T14:00:28.950Z",
+          "attributes": {
+            "agent.framework": "custom",
+            "agent.name": "ResearchAgent",
+            "agent.session_id": "sess_research_1",
+            "agent.goal": "Research and write a short brief with citations and risks."
+          },
+          "input": {
+            "user_request": "调研：AI Agent Trace Observability（类似 LangSmith/Jaeger/Phoenix），产出一页简报：核心能力、数据模型、API、落地风险。"
+          },
+          "events": [
+            {
+              "name": "log",
+              "time": "2026-03-15T14:00:00.040Z",
+              "attributes": { "level": "info", "message": "Run started" }
+            }
+          ]
+        },
+
+        {
+          "span_id": "0000000000001001",
+          "parent_span_id": "0000000000001000",
+          "name": "agent.plan",
+          "kind": "agent",
+          "start_time": "2026-03-15T14:00:00.060Z",
+          "end_time": "2026-03-15T14:00:02.200Z",
+          "attributes": {
+            "agent.step.index": 1,
+            "agent.step.name": "plan",
+            "agent.plan.style": "outline"
+          }
+        },
+        {
+          "span_id": "0000000000002001",
+          "parent_span_id": "0000000000001001",
+          "name": "llm.chat.completions",
+          "kind": "llm",
+          "start_time": "2026-03-15T14:00:00.120Z",
+          "end_time": "2026-03-15T14:00:02.050Z",
+          "attributes": {
+            "gen_ai.provider.name": "openai",
+            "gen_ai.request.model": "gpt-5.2-mini",
+            "gen_ai.operation.name": "chat.completions",
+            "gen_ai.prompt": "You are a research agent. Produce a concise research plan and tool queries.",
+            "gen_ai.usage.input_tokens": 420,
+            "gen_ai.usage.output_tokens": 180
+          },
+          "input": {
+            "messages": [
+              { "role": "system", "content": "You are a rigorous research agent." },
+              { "role": "user", "content": "Draft a plan and search queries." }
+            ]
+          },
+          "output": {
+            "plan": [
+              "Define observability goals & UX",
+              "Model trace/span/event schema",
+              "Compare to LangSmith/Jaeger/Phoenix",
+              "Draft API endpoints and risks"
+            ],
+            "queries": [
+              "OpenTelemetry GenAI semantic conventions spans attributes",
+              "LangSmith tracing data model",
+              "Jaeger trace visualization waterfall span tree",
+              "Arize Phoenix tracing LLM observability"
+            ]
+          }
+        },
+
+        {
+          "span_id": "0000000000001002",
+          "parent_span_id": "0000000000001000",
+          "name": "agent.collect_sources",
+          "kind": "agent",
+          "start_time": "2026-03-15T14:00:02.260Z",
+          "end_time": "2026-03-15T14:00:12.650Z",
+          "attributes": {
+            "agent.step.index": 2,
+            "agent.step.name": "collect_sources"
+          }
+        },
+        {
+          "span_id": "0000000000003001",
+          "parent_span_id": "0000000000001002",
+          "name": "tool.web_search",
+          "kind": "tool",
+          "start_time": "2026-03-15T14:00:02.320Z",
+          "end_time": "2026-03-15T14:00:03.220Z",
+          "attributes": {
+            "tool.name": "web_search",
+            "tool.type": "http",
+            "gen_ai.tool.name": "web_search",
+            "gen_ai.tool.type": "http"
+          },
+          "input": {
+            "q": "OpenTelemetry GenAI semantic conventions spans attributes"
+          },
+          "output": {
+            "results": [
+              { "title": "OpenTelemetry GenAI Semantic Conventions", "url": "https://opentelemetry.io/docs/specs/semconv/gen-ai/" },
+              { "title": "GenAI Spans", "url": "https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-spans/" }
+            ]
+          }
+        },
+        {
+          "span_id": "0000000000003002",
+          "parent_span_id": "0000000000001002",
+          "name": "tool.fetch_url",
+          "kind": "tool",
+          "start_time": "2026-03-15T14:00:03.260Z",
+          "end_time": "2026-03-15T14:00:04.100Z",
+          "attributes": {
+            "tool.name": "fetch_url",
+            "tool.type": "http",
+            "http.url": "https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-spans/"
+          },
+          "input": { "url": "https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-spans/" },
+          "output": { "status": 200, "bytes": 58231 }
+        },
+        {
+          "span_id": "0000000000003003",
+          "parent_span_id": "0000000000001002",
+          "name": "tool.fetch_url",
+          "kind": "tool",
+          "start_time": "2026-03-15T14:00:04.140Z",
+          "end_time": "2026-03-15T14:00:05.020Z",
+          "attributes": {
+            "tool.name": "fetch_url",
+            "tool.type": "http",
+            "http.url": "https://example.com/jaeger-waterfall"
+          },
+          "input": { "url": "https://example.com/jaeger-waterfall" },
+          "status": { "code": "error", "message": "HTTP 404" },
+          "attributes": {
+            "tool.name": "fetch_url",
+            "tool.type": "http",
+            "http.url": "https://example.com/jaeger-waterfall",
+            "error": { "type": "HTTPError", "message": "404 Not Found" }
+          },
+          "events": [
+            {
+              "name": "exception",
+              "time": "2026-03-15T14:00:04.980Z",
+              "attributes": {
+                "exception.type": "HTTPError",
+                "exception.message": "404 Not Found",
+                "exception.stacktrace": "fetch_url -> HTTP 404"
+              }
+            }
+          ]
+        },
+        {
+          "span_id": "0000000000003004",
+          "parent_span_id": "0000000000001002",
+          "name": "tool.web_search",
+          "kind": "tool",
+          "start_time": "2026-03-15T14:00:05.100Z",
+          "end_time": "2026-03-15T14:00:06.050Z",
+          "attributes": {
+            "tool.name": "web_search",
+            "tool.type": "http",
+            "retry.attempt": 1,
+            "retry.reason": "previous fetch 404"
+          },
+          "input": { "q": "Jaeger trace waterfall span tree UI" },
+          "output": {
+            "results": [
+              { "title": "Jaeger UI", "url": "https://www.jaegertracing.io/" },
+              { "title": "Jaeger Documentation", "url": "https://www.jaegertracing.io/docs/" }
+            ]
+          }
+        },
+        {
+          "span_id": "0000000000003005",
+          "parent_span_id": "0000000000001002",
+          "name": "tool.fetch_url",
+          "kind": "tool",
+          "start_time": "2026-03-15T14:00:06.120Z",
+          "end_time": "2026-03-15T14:00:07.050Z",
+          "attributes": {
+            "tool.name": "fetch_url",
+            "tool.type": "http",
+            "http.url": "https://www.jaegertracing.io/docs/"
+          },
+          "input": { "url": "https://www.jaegertracing.io/docs/" },
+          "output": { "status": 200, "bytes": 93321 }
+        },
+        {
+          "span_id": "0000000000003006",
+          "parent_span_id": "0000000000001002",
+          "name": "tool.web_search",
+          "kind": "tool",
+          "start_time": "2026-03-15T14:00:07.100Z",
+          "end_time": "2026-03-15T14:00:07.950Z",
+          "attributes": { "tool.name": "web_search", "tool.type": "http" },
+          "input": { "q": "LangSmith tracing spans runs data model" },
+          "output": {
+            "results": [
+              { "title": "LangSmith", "url": "https://www.langchain.com/langsmith" },
+              { "title": "LangSmith Docs", "url": "https://docs.smith.langchain.com/" }
+            ]
+          }
+        },
+        {
+          "span_id": "0000000000003007",
+          "parent_span_id": "0000000000001002",
+          "name": "tool.web_search",
+          "kind": "tool",
+          "start_time": "2026-03-15T14:00:08.020Z",
+          "end_time": "2026-03-15T14:00:08.860Z",
+          "attributes": { "tool.name": "web_search", "tool.type": "http" },
+          "input": { "q": "Arize Phoenix LLM observability tracing" },
+          "output": {
+            "results": [
+              { "title": "Arize Phoenix", "url": "https://github.com/Arize-ai/phoenix" }
+            ]
+          }
+        },
+        {
+          "span_id": "0000000000003100",
+          "parent_span_id": "0000000000001002",
+          "name": "tool.parse_html",
+          "kind": "tool",
+          "start_time": "2026-03-15T14:00:09.000Z",
+          "end_time": "2026-03-15T14:00:10.800Z",
+          "attributes": { "tool.name": "parse_html", "tool.type": "local" },
+          "input": { "source": "opentelemetry-gen-ai-spans.html" },
+          "output": { "sections": 14, "extracted_chars": 18420 }
+        },
+        {
+          "span_id": "0000000000003200",
+          "parent_span_id": "0000000000001002",
+          "name": "tool.vector_index.upsert",
+          "kind": "tool",
+          "start_time": "2026-03-15T14:00:10.950Z",
+          "end_time": "2026-03-15T14:00:12.520Z",
+          "attributes": { "tool.name": "vector_index.upsert", "tool.type": "local" },
+          "input": { "documents": 6, "chunk_size": 800 },
+          "output": { "upserted": 42 }
+        },
+
+        {
+          "span_id": "0000000000001003",
+          "parent_span_id": "0000000000001000",
+          "name": "agent.analyze_and_summarize",
+          "kind": "agent",
+          "start_time": "2026-03-15T14:00:12.700Z",
+          "end_time": "2026-03-15T14:00:20.900Z",
+          "attributes": {
+            "agent.step.index": 3,
+            "agent.step.name": "analyze"
+          }
+        },
+        {
+          "span_id": "0000000000003300",
+          "parent_span_id": "0000000000001003",
+          "name": "tool.vector_index.search",
+          "kind": "tool",
+          "start_time": "2026-03-15T14:00:12.780Z",
+          "end_time": "2026-03-15T14:00:13.250Z",
+          "attributes": { "tool.name": "vector_index.search", "tool.type": "local" },
+          "input": { "query": "gen_ai spans required attributes tokens provider error", "top_k": 5 },
+          "output": { "hits": 5 }
+        },
+        {
+          "span_id": "0000000000002002",
+          "parent_span_id": "0000000000001003",
+          "name": "llm.chat.completions",
+          "kind": "llm",
+          "start_time": "2026-03-15T14:00:13.320Z",
+          "end_time": "2026-03-15T14:00:18.980Z",
+          "attributes": {
+            "gen_ai.provider.name": "openai",
+            "gen_ai.request.model": "gpt-5.2-mini",
+            "gen_ai.operation.name": "chat.completions",
+            "gen_ai.prompt": "Summarize key semconv fields; identify gaps in our prototype; propose mapping.",
+            "gen_ai.usage.input_tokens": 980,
+            "gen_ai.usage.output_tokens": 420
+          },
+          "input": {
+            "context": "vector hits + fetched docs",
+            "questions": [
+              "What are required GenAI span attributes?",
+              "How to represent tool calls and token usage?",
+              "What privacy rules apply to prompt content?"
+            ]
+          },
+          "output": {
+            "summary": [
+              "Prefer gen_ai.provider.name; avoid gen_ai.system",
+              "Token usage uses input/output tokens",
+              "Prompt content collection should be opt-in"
+            ],
+            "mapping": {
+              "our.prompt_tokens": "gen_ai.usage.input_tokens",
+              "our.completion_tokens": "gen_ai.usage.output_tokens"
+            }
+          },
+          "events": [
+            {
+              "name": "log",
+              "time": "2026-03-15T14:00:15.400Z",
+              "attributes": { "level": "debug", "message": "Drafting mapping table" }
+            }
+          ]
+        },
+        {
+          "span_id": "0000000000002003",
+          "parent_span_id": "0000000000001003",
+          "name": "llm.chat.completions(stream)",
+          "kind": "llm",
+          "start_time": "2026-03-15T14:00:19.020Z",
+          "end_time": "2026-03-15T14:00:20.850Z",
+          "attributes": {
+            "gen_ai.provider.name": "openai",
+            "gen_ai.request.model": "gpt-5.2-mini",
+            "gen_ai.operation.name": "chat.completions",
+            "gen_ai.prompt": "Stream a 5-bullet risk list for implementing trace observability.",
+            "gen_ai.usage.input_tokens": 300,
+            "gen_ai.usage.output_tokens": 120
+          },
+          "events": [
+            {
+              "name": "gen_ai.stream.delta",
+              "time": "2026-03-15T14:00:19.300Z",
+              "attributes": { "delta": "Risk 1: prompt privacy..." }
+            },
+            {
+              "name": "gen_ai.stream.delta",
+              "time": "2026-03-15T14:00:19.680Z",
+              "attributes": { "delta": "Risk 2: cross-service context propagation..." }
+            }
+          ],
+          "output": {
+            "bullets": [
+              "Prompt/PII leakage",
+              "Out-of-order/partial spans",
+              "High-cardinality attributes",
+              "Sampling and storage costs",
+              "Redaction and RBAC"
+            ]
+          }
+        },
+
+        {
+          "span_id": "0000000000001004",
+          "parent_span_id": "0000000000001000",
+          "name": "agent.write_brief",
+          "kind": "agent",
+          "start_time": "2026-03-15T14:00:21.000Z",
+          "end_time": "2026-03-15T14:00:28.800Z",
+          "attributes": {
+            "agent.step.index": 4,
+            "agent.step.name": "write"
+          }
+        },
+        {
+          "span_id": "0000000000002004",
+          "parent_span_id": "0000000000001004",
+          "name": "llm.chat.completions",
+          "kind": "llm",
+          "start_time": "2026-03-15T14:00:21.120Z",
+          "end_time": "2026-03-15T14:00:27.900Z",
+          "attributes": {
+            "gen_ai.provider.name": "openai",
+            "gen_ai.request.model": "gpt-5.2",
+            "gen_ai.operation.name": "chat.completions",
+            "gen_ai.prompt": "Write a one-page brief: capabilities, data model, API, risks; include citations placeholders.",
+            "gen_ai.usage.input_tokens": 1320,
+            "gen_ai.usage.output_tokens": 760
+          },
+          "input": {
+            "sources": [
+              "https://opentelemetry.io/docs/specs/semconv/gen-ai/",
+              "https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-spans/",
+              "https://www.jaegertracing.io/docs/",
+              "https://docs.smith.langchain.com/",
+              "https://github.com/Arize-ai/phoenix"
+            ]
+          },
+          "output": {
+            "brief_markdown": "# Agent Trace Observability Brief\\n\\n## Capabilities\\n- Ingest agent traces (bundle or per-span)\\n- Visualize span tree + waterfall\\n- Inspect LLM/tool calls, tokens, errors\\n\\n## Data Model\\n- Trace/Span/Event with GenAI attributes\\n\\n## API\\n- POST /ingest, /ingest/span, /ingest/event\\n- GET /traces, /traces/{id}\\n\\n## Risks\\n- Privacy (prompt redaction)\\n- High cardinality\\n- Out-of-order merges\\n\\n## References\\n- OTel GenAI semantic conventions (see source URLs)"
+          }
+        },
+        {
+          "span_id": "0000000000003400",
+          "parent_span_id": "0000000000001004",
+          "name": "tool.save_artifact",
+          "kind": "tool",
+          "start_time": "2026-03-15T14:00:28.020Z",
+          "end_time": "2026-03-15T14:00:28.650Z",
+          "attributes": { "tool.name": "save_artifact", "tool.type": "local" },
+          "input": { "path": "artifacts/brief.md" },
+          "output": { "written_bytes": 1820 }
+        }
+      ]
+    }
+  ]
+}
+

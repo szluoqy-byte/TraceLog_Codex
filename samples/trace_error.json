@@ -1,0 +1,65 @@
+{
+  "version": "tracelog.v1",
+  "resource": {
+    "service.name": "demo-agent",
+    "deployment.environment": "local"
+  },
+  "traces": [
+    {
+      "trace_id": "c0ffee254bf34ad0a3ce929d0e0e0001",
+      "started_at": "2026-03-15T11:00:00.000Z",
+      "spans": [
+        {
+          "span_id": "1000000000000001",
+          "parent_span_id": null,
+          "name": "agent.run",
+          "kind": "agent",
+          "start_time": "2026-03-15T11:00:00.000Z",
+          "end_time": "2026-03-15T11:00:01.600Z",
+          "attributes": {
+            "agent.framework": "custom"
+          }
+        },
+        {
+          "span_id": "1000000000000002",
+          "parent_span_id": "1000000000000001",
+          "name": "tool.search",
+          "kind": "tool",
+          "start_time": "2026-03-15T11:00:00.200Z",
+          "end_time": "2026-03-15T11:00:00.520Z",
+          "input": { "q": "some query" },
+          "status": { "code": "error", "message": "HTTP 429" },
+          "attributes": {
+            "tool.name": "search",
+            "tool.type": "http",
+            "error": { "type": "RateLimitError", "message": "HTTP 429: Too Many Requests" }
+          },
+          "events": [
+            {
+              "name": "exception",
+              "time": "2026-03-15T11:00:00.500Z",
+              "attributes": {
+                "exception.type": "RateLimitError",
+                "exception.message": "HTTP 429: Too Many Requests"
+              }
+            }
+          ]
+        },
+        {
+          "span_id": "1000000000000003",
+          "parent_span_id": "1000000000000001",
+          "name": "llm.chat.completions",
+          "kind": "llm",
+          "start_time": "2026-03-15T11:00:00.650Z",
+          "end_time": "2026-03-15T11:00:01.520Z",
+          "attributes": {
+            "gen_ai.request.model": "gpt-5.2-mini",
+            "gen_ai.prompt": "Apologize and ask user to retry later.",
+            "gen_ai.usage.prompt_tokens": 60,
+            "gen_ai.usage.completion_tokens": 35
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "version": "tracelog.v1",
+  "resource": {
+    "service.name": "demo-agent",
+    "service.instance.id": "node-a",
+    "deployment.environment": "local"
+  },
+  "trace_id": "d1str1buted4bf34da6a3ce929d0e0e111",
+  "span": {
+    "span_id": "aaaaaaaaaaaaaaaa",
+    "parent_span_id": null,
+    "name": "agent.run",
+    "kind": "agent",
+    "start_time": "2026-03-15T12:00:00.000Z",
+    "end_time": "2026-03-15T12:00:03.200Z",
+    "attributes": {
+      "agent.framework": "custom",
+      "agent.session_id": "sess_dist_1"
+    },
+    "events": [
+      {
+        "name": "log",
+        "time": "2026-03-15T12:00:00.050Z",
+        "attributes": { "level": "info", "message": "distributed run start" }
+      }
+    ]
+  }
+}
+

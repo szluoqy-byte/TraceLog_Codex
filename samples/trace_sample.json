@@ -1,0 +1,106 @@
+{
+  "version": "tracelog.v1",
+  "resource": {
+    "service.name": "demo-agent",
+    "service.version": "0.1.0",
+    "deployment.environment": "local"
+  },
+  "traces": [
+    {
+      "trace_id": "4bf92f3577b34da6a3ce929d0e0e4736",
+      "started_at": "2026-03-15T10:00:00.000Z",
+      "spans": [
+        {
+          "span_id": "0000000000000001",
+          "parent_span_id": null,
+          "name": "agent.run",
+          "kind": "agent",
+          "start_time": "2026-03-15T10:00:00.000Z",
+          "end_time": "2026-03-15T10:00:02.850Z",
+          "attributes": {
+            "agent.framework": "custom",
+            "agent.session_id": "sess_123"
+          },
+          "events": [
+            {
+              "name": "log",
+              "time": "2026-03-15T10:00:00.050Z",
+              "attributes": {
+                "level": "info",
+                "message": "Start run"
+              }
+            }
+          ]
+        },
+        {
+          "span_id": "0000000000000002",
+          "parent_span_id": "0000000000000001",
+          "name": "llm.chat.completions",
+          "kind": "llm",
+          "start_time": "2026-03-15T10:00:00.120Z",
+          "end_time": "2026-03-15T10:00:01.100Z",
+          "attributes": {
+            "gen_ai.system": "openai",
+            "gen_ai.request.model": "gpt-5.2-mini",
+            "gen_ai.operation.name": "chat.completions",
+            "gen_ai.prompt": "You are a helpful agent. Given a user question, decide whether to call a tool.",
+            "gen_ai.usage.prompt_tokens": 120,
+            "gen_ai.usage.completion_tokens": 35,
+            "gen_ai.usage.total_tokens": 155
+          },
+          "input": {
+            "messages": [
+              { "role": "system", "content": "You are a helpful agent." },
+              { "role": "user", "content": "What's the weather in Shanghai today? Use a tool if needed." }
+            ]
+          },
+          "output": {
+            "assistant": "I will call weather tool for Shanghai."
+          }
+        },
+        {
+          "span_id": "0000000000000003",
+          "parent_span_id": "0000000000000001",
+          "name": "tool.weather",
+          "kind": "tool",
+          "start_time": "2026-03-15T10:00:01.150Z",
+          "end_time": "2026-03-15T10:00:01.450Z",
+          "attributes": {
+            "tool.name": "weather",
+            "tool.type": "external_api"
+          },
+          "input": {
+            "location": "Shanghai, CN"
+          },
+          "output": {
+            "forecast": "Sunny, 22C"
+          }
+        },
+        {
+          "span_id": "0000000000000004",
+          "parent_span_id": "0000000000000001",
+          "name": "llm.chat.completions",
+          "kind": "llm",
+          "start_time": "2026-03-15T10:00:01.500Z",
+          "end_time": "2026-03-15T10:00:02.720Z",
+          "attributes": {
+            "gen_ai.system": "openai",
+            "gen_ai.request.model": "gpt-5.2-mini",
+            "gen_ai.operation.name": "chat.completions",
+            "gen_ai.prompt": "Write the final answer using tool result.",
+            "gen_ai.usage.prompt_tokens": 90,
+            "gen_ai.usage.completion_tokens": 60,
+            "gen_ai.usage.total_tokens": 150
+          },
+          "input": {
+            "tool_result": "Sunny, 22C"
+          },
+          "output": {
+            "assistant": "Shanghai is sunny today with around 22C."
+          }
+        }
+      ]
+    }
+  ]
+}
+
